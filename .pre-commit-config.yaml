@@ -1,0 +1,30 @@
+-   repo: git://github.com/pre-commit/pre-commit-hooks
+    sha: v0.8.0
+    hooks:
+    -   id: trailing-whitespace
+        files: \.(js|json|rb|md|py|sh|spec|txt|yaml|yml)$
+    -   id: check-merge-conflict
+    -   id: check-case-conflict
+    -   id: end-of-file-fixer
+-   repo: local
+    hooks:
+    -   id: rpm-lint
+        name: RPM Lint
+        entry: rpmlint
+        language: system
+        files: \.spec$
+-   repo: local
+    hooks:
+    -   id: travis-lint
+        name: Travis Lint
+        entry: bundle
+        language: system
+        files: ^\.travis\.yml$
+        args:
+        - exec
+        - travis
+        - lint
+        - --no-interactive
+        - --skip-version-check
+        - --skip-completion-check
+        - --exit-code
